@@ -1,6 +1,6 @@
 import unittest
 
-#import fkmnkit
+import fkmnkit
 from fkmnkit.poketypes import STANDARD_TYPES, PokeTypeSet
 from fkmnkit.correctors import WonderType
 
@@ -13,7 +13,7 @@ class TestWonderGuard(unittest.TestCase):
 		flying = STANDARD_TYPES['Flying']
 		fighting = STANDARD_TYPES['Fighting']
 		shedinja = PokeTypeSet((ghost, bug))
-		flying_press = PokeTypeset((WonderType(fighting), WonderType(flying)))
+		flying_press = PokeTypeSet((WonderType(fighting), WonderType(flying)))
 
 		self.assertEqual(WonderType(fire) * shedinja, 2)
 		self.assertEqual(WonderType(ghost) * shedinja, 2)

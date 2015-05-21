@@ -1,4 +1,4 @@
-from poketypes import PokeType, PokeTypeSet
+from fkmnkit.poketypes import PokeType, PokeTypeSet
 
 def toWonderSet(poketypesset):
 	wtypes = []
