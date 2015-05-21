@@ -1,5 +1,6 @@
 import gettext
 import csv
+import os
 from collections import Counter
 
 gettext.install('fakemon_kit')
@@ -137,7 +138,7 @@ class PokeTypeSet:
 			return other
 
 STANDARD_TYPES = {}
-with open('standard_types.tsv', 'r', encoding='utf-8') as f:
+with open(os.path.join(os.path.dirname(__file__), 'standard_types.tsv'), 'r', encoding='utf-8') as f:
 	csvr = csv.reader(f, delimiter='\t')
 	come_back_here=[]
 	tid=0
