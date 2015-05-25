@@ -5,10 +5,7 @@ def toInverseType(poketype):
 	new_weaknesses = poketype.resistances|poketype.immunities
 	new_resistances = poketype.weaknesses
 
-	new_type = deepcopy(poketype)
-	new_type.weaknesses = new_weaknesses
-	new_type.immunities.clear()
-	new_type.resistances = new_resistances
+	new_type = PokeType(tid=poketype.tid, weaknesses=new_weaknesses, resistances=new_resistances, label=poketype.label)
 	return new_type
 
 def toInverseTypeSet(poketypeset):
@@ -26,7 +23,7 @@ def toWonderSet(poketypesset):
 class WonderType(PokeType):
 	"""Correctors are applied to attacking type!"""
 	def __init__(self, orig_type):
-		super().__init__(orig_type.tid, weaknesses=orig_type.weaknesses, 
+		super().__init__(tid=orig_type.tid, weaknesses=orig_type.weaknesses, 
 		                 resistances=orig_type.resistances, immunities=orig_type.immunities,
 		                 label=orig_type.label)
 
@@ -43,6 +40,7 @@ class WonderType(PokeType):
 			for t in other.types: #defending types
 				#res = (self * t)
 				#print("HURP", super().__mul__(t))
+				print(running_product, self, t)
 				running_product *= super().__mul__(t)
 			if running_product >= 2:
 				return running_product
