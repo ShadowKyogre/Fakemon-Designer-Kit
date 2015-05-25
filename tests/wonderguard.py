@@ -21,5 +21,16 @@ class TestWonderGuard(unittest.TestCase):
 		self.assertEqual(WonderType(bug) * shedinja, 0)
 		self.assertEqual(flying_press * shedinja, 0)
 
+	def test_hacked_spiritomb(self):
+		ghost = STANDARD_TYPES['Ghost']
+		dark = STANDARD_TYPES['Dark']
+		fairy = STANDARD_TYPES['Fairy']
+		fire = STANDARD_TYPES['Fire']
+
+		spiritomb = PokeTypeSet((ghost, dark))
+		self.assertEqual(WonderType(fairy) * spiritomb, 2)
+		self.assertEqual(WonderType(ghost) * spiritomb, 0)
+		self.assertEqual(WonderType(fire) * spiritomb, 0)
+
 if __name__ == '__main__':
 	unittest.main()
