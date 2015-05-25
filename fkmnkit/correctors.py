@@ -1,4 +1,21 @@
 from fkmnkit.poketypes import PokeType, PokeTypeSet
+from copy import deepcopy
+
+def toInverseType(poketype):
+	new_weaknesses = poketype.resistances|poketype.immunities
+	new_resistances = poketype.weaknesses
+
+	new_type = deepcopy(poketype)
+	new_type.weaknesses = new_weaknesses
+	new_type.immunities.clear()
+	new_type.resistances = new_resistances
+	return new_type
+
+def toInverseTypeSet(poketypeset):
+	itypes = []
+	for i in poketypeset.types:
+		itypes.append(toInverseType(poketype))
+	return PokeTypeSet(itypes)
 
 def toWonderSet(poketypesset):
 	wtypes = []
