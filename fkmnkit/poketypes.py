@@ -83,9 +83,9 @@ class PokeType:
 	def __repr__(self):
 		return "PokeType(tid={}, label={})".format(self.tid, self.label)
 
-	def __mul__(self, other):
+	def effectiveness_against(self, other):
 		#implement corrections through multiplier overriding?
-		#print('PokeType.__mul__', other)
+		#print('PokeType.effectiveness_against', other)
 		if isinstance(other, PokeType): #defending type
 			if self in other.weaknesses:
 				return 2
@@ -98,7 +98,7 @@ class PokeType:
 		elif isinstance(other, PokeTypeSet):
 			running_product = 1
 			for t in other.types: #defending types
-				running_product *= (self * t)
+				running_product *= self.effectiveness_against(t)
 			return running_product
 		else:
 			return other
@@ -121,18 +121,18 @@ class PokeTypeSet:
 	def __repr__(self):
 		return "PokeTypeSet({})".format(repr(self.types))
 
-	def __mul__(self, other):
-		#print('__mul__', other)
+	def effectiveness_against(self, other):
+		#print('effectiveness_against', other)
 		if isinstance(other, PokeTypeSet):
 			running_product = 1
 			for t in self.types: #attack types
 				for t2 in other.types: #defend types
-					running_product *= (t * t2)
+					running_product *= t.effectiveness_against(t2)
 			return running_product
 		elif isinstance(other, PokeType):
 			running_product = 1
 			for t in self.types: #attack types
-				running_product *= (t * other)
+				running_product *= t.effectiveness_against(other)
 			return running_product
 		else:
 			return other

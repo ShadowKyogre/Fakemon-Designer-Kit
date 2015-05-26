@@ -10,9 +10,9 @@ class TestComboChecks(unittest.TestCase):
 		ground = STANDARD_TYPES['Ground']
 		heatran = PokeTypeSet((fire, steel))
 
-		self.assertEqual(ground * heatran, 4)
-		self.assertEqual(fire * heatran, 1)
-		self.assertEqual(steel * heatran, 0.25)
+		self.assertEqual(ground.effectiveness_against(heatran), 4)
+		self.assertEqual(fire.effectiveness_against(heatran), 1)
+		self.assertEqual(steel.effectiveness_against(heatran), 0.25)
 
 	def test_mega_altaria(self):
 		ice = STANDARD_TYPES['Ice']
@@ -20,8 +20,8 @@ class TestComboChecks(unittest.TestCase):
 		fairy = STANDARD_TYPES['Fairy']
 		mega_altaria = PokeTypeSet((dragon, fairy))
 
-		self.assertEqual(fairy * mega_altaria, 2)
-		self.assertEqual(dragon * mega_altaria, 0)
-		self.assertEqual(ice * mega_altaria, 2)
+		self.assertEqual(fairy.effectiveness_against(mega_altaria), 2)
+		self.assertEqual(dragon.effectiveness_against(mega_altaria), 0)
+		self.assertEqual(ice.effectiveness_against(mega_altaria), 2)
 if __name__ == '__main__':
 	unittest.main()

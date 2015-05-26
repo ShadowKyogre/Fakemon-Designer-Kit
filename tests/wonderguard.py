@@ -15,11 +15,11 @@ class TestWonderGuard(unittest.TestCase):
 		shedinja = PokeTypeSet((ghost, bug))
 		flying_press = PokeTypeSet((WonderType(fighting), WonderType(flying)))
 
-		self.assertEqual(WonderType(fire) * shedinja, 2)
-		self.assertEqual(WonderType(ghost) * shedinja, 2)
-		self.assertEqual(WonderType(steel) * shedinja, 0)
-		self.assertEqual(WonderType(bug) * shedinja, 0)
-		self.assertEqual(flying_press * shedinja, 0)
+		self.assertEqual(WonderType(fire).effectiveness_against(shedinja), 2)
+		self.assertEqual(WonderType(ghost).effectiveness_against(shedinja), 2)
+		self.assertEqual(WonderType(steel).effectiveness_against(shedinja), 0)
+		self.assertEqual(WonderType(bug).effectiveness_against(shedinja), 0)
+		self.assertEqual(flying_press.effectiveness_against(shedinja), 0)
 
 	def test_hacked_spiritomb(self):
 		ghost = STANDARD_TYPES['Ghost']
@@ -28,9 +28,9 @@ class TestWonderGuard(unittest.TestCase):
 		fire = STANDARD_TYPES['Fire']
 
 		spiritomb = PokeTypeSet((ghost, dark))
-		self.assertEqual(WonderType(fairy) * spiritomb, 2)
-		self.assertEqual(WonderType(ghost) * spiritomb, 0)
-		self.assertEqual(WonderType(fire) * spiritomb, 0)
+		self.assertEqual(WonderType(fairy).effectiveness_against(spiritomb), 2)
+		self.assertEqual(WonderType(ghost).effectiveness_against(spiritomb), 0)
+		self.assertEqual(WonderType(fire).effectiveness_against(spiritomb), 0)
 
 if __name__ == '__main__':
 	unittest.main()

@@ -27,9 +27,9 @@ class WonderType(PokeType):
 		                 resistances=orig_type.resistances, immunities=orig_type.immunities,
 		                 label=orig_type.label)
 
-	def __mul__(self, other):
+	def effectiveness_against(self, other):
 		#implement corrections through multiplier overriding?
-		#print('WonderType.__mul__', other)
+		#print('WonderType.effectiveness_against', other)
 		if isinstance(other, PokeType): #defending type
 			if self in other.weaknesses:
 				return 2
@@ -39,9 +39,9 @@ class WonderType(PokeType):
 			running_product = 1
 			for t in other.types: #defending types
 				#res = (self * t)
-				#print("HURP", super().__mul__(t))
+				#print("HURP", super().effectiveness_against(t))
 				print(running_product, self, t)
-				running_product *= super().__mul__(t)
+				running_product *= super().effectiveness_against(t)
 			if running_product >= 2:
 				return running_product
 			else:
@@ -73,9 +73,9 @@ class OverwriteType(PokeType):
 		else:
 			self.ori = ori
 
-	def __mul__(self, other):
+	def effectiveness_against(self, other):
 		#implement corrections through multiplier overriding?
-		#print('OverwriteType.__mul__', other)
+		#print('OverwriteType.effectiveness_against', other)
 		if isinstance(other, PokeType): #defending type
 			if other in self.orw: #force the defending type to be weak to this
 				return 2
@@ -84,11 +84,11 @@ class OverwriteType(PokeType):
 			elif other in self.ori: #force the defending type to be immune to this
 				return 0
 			else:
-				return super().__mul__(other)
+				return super().effectiveness_against(other)
 		elif isinstance(other, PokeTypeSet):
 			running_product = 1
 			for t in other.types: #defending types
-				running_product *= (self * t)
+				running_product *= self.effectiveness_against(t)
 			return running_product
 		else:
 			return other
