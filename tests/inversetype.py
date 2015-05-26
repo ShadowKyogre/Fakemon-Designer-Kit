@@ -2,7 +2,7 @@ import unittest
 
 import fkmnkit
 from fkmnkit.poketypes import STANDARD_TYPES, PokeTypeSet
-from fkmnkit.correctors import toInverseType, toInverseTypeSet, WonderType
+from fkmnkit.correctors import toInverseType, toInverseTypeSet, WonderType, WonderTypeSet
 
 class TestInverseType(unittest.TestCase):
 	def test_heatran(self):
@@ -33,7 +33,7 @@ class TestInverseType(unittest.TestCase):
 		flying = toInverseType(STANDARD_TYPES['Flying'])
 		fighting = toInverseType(STANDARD_TYPES['Fighting'])
 		shedinja = PokeTypeSet((ghost, bug))
-		flying_press = PokeTypeSet((WonderType(fighting), WonderType(flying)))
+		flying_press = WonderTypeSet((fighting, flying))
 
 		self.assertEqual(WonderType(fire).effectiveness_against(shedinja), 0)
 		self.assertEqual(WonderType(ghost).effectiveness_against(shedinja), 0)

@@ -101,7 +101,7 @@ class PokeType:
 				running_product *= self.effectiveness_against(t)
 			return running_product
 		else:
-			return other
+			raise ValueError("Cannot calculate type effectiveness")
 
 	def __eq__(self, other):
 		if isinstance(other, PokeType):
@@ -135,7 +135,7 @@ class PokeTypeSet:
 				running_product *= t.effectiveness_against(other)
 			return running_product
 		else:
-			return other
+			raise ValueError("Cannot calculate type effectiveness")
 
 STANDARD_TYPES = {}
 with open(os.path.join(os.path.dirname(__file__), 'standard_types.tsv'), 'r', encoding='utf-8') as f:

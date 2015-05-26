@@ -40,7 +40,7 @@ class WonderType(PokeType):
 			for t in other.types: #defending types
 				#res = (self * t)
 				#print("HURP", super().effectiveness_against(t))
-				print(running_product, self, t)
+				#print(running_product, self, t)
 				running_product *= super().effectiveness_against(t)
 			if running_product >= 2:
 				return running_product
@@ -48,6 +48,29 @@ class WonderType(PokeType):
 				return 0
 		else:
 			return other
+
+class WonderTypeSet(PokeTypeSet):
+	def effectiveness_against(self, other):
+		#print('effectiveness_against', other)
+		if isinstance(other, PokeTypeSet):
+			running_product = 1
+			for t in self.types: #attack types
+				for t2 in other.types: #defend types
+					running_product *= t.effectiveness_against(t2)
+			if running_product >= 2:
+				return running_product
+			else:
+				return 0
+		elif isinstance(other, PokeType):
+			running_product = 1
+			for t in self.types: #attack types
+				running_product *= t.effectiveness_against(other)
+			if running_product >= 2:
+				return running_product
+			else:
+				return 0
+		else:
+			raise ValueError("Cannot calculate type effectiveness")
 
 class OverwriteType(PokeType):
 	"""Correctors are applied to attacking type!
