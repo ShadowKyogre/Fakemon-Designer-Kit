@@ -139,8 +139,8 @@ class PokemonInstance:
 	def _validate_iv_val(self, d):
 		return not (d < PokemonInstance.MIN_BST_VAL or d > PokemonInstance.MAX_BST_VAL)
 
-	def _calculate_stat(self, iv, bsv, evs, offset=5, nature=0):
-		return ((iv + 2* bsv + evs/4) * self.level / 100 + offset) * (1.0 + nature * 0.1)
+	def _calculate_stat(self, iv, bsv, evs, lvloffset=0, foffset=5, nature=0):
+		return ((iv + 2* bsv + evs/4 + lvloffset) * self.level / 100 + foffset) * (1.0 + nature * 0.1)
 
 	def attacks_with(self, technique, *targets):
 		damages = []
