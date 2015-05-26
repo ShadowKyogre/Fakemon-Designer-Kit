@@ -39,7 +39,6 @@ class TestInverseType(unittest.TestCase):
 		self.assertEqual(WonderType(ghost).effectiveness_against(shedinja), 0)
 		self.assertEqual(WonderType(steel).effectiveness_against(shedinja), 0)
 		self.assertEqual(WonderType(bug).effectiveness_against(shedinja), 2)
-		print(flying_press.effectiveness_against(shedinja), fighting.effectiveness_against(shedinja), flying.effectiveness_against(shedinja))
 		self.assertEqual(flying_press.effectiveness_against(shedinja), 2)
 
 	def test_hacked_spiritomb(self):
