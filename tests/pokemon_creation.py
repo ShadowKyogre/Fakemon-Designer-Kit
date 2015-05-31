@@ -1,7 +1,7 @@
 import unittest
 
 import fkmnkit
-from fkmnkit.poketypes import Pokemon
+from fkmnkit.creatures import Pokemon
 
 class TestPokemonCreation(unittest.TestCase):
 	def test_bst_validation(self):
