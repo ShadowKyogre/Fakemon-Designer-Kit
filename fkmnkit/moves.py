@@ -1,15 +1,16 @@
 from enum import Enum
 import ast
+import builtins
 
-AST_WHITELIST = (ast.Expression, ast.Call, ast.Name, ast.Load,
+AST_WHITELIST = (ast.Expression, ast.GeneratorExp, ast.Call, ast.Name, ast.Load,
                  ast.BinOp, ast.UnaryOp, ast.operator, ast.unaryop, ast.cmpop,
-                 ast.Num, ast.Tuple, ast.Attribute)
-EVAL_SAFEDICT = {k:locals().get(k, None) for k in ('range', 'tuple', 'sum') }
+                 ast.Num, ast.Tuple, ast.Attribute, ast.comprehension, ast.Store)
+EVAL_SAFEDICT = {k: builtins.__dict__.get(k, None) for k in ('range', 'tuple', 'sum', 'max', 'min') }
 
 def eq_eval(eq, lcl_vrs):
-	lcl_vrs_cpy = lcl_vrs.copy()
-	lcl_vrs_cpy.update(EVAL_SAFEDICT)
-	return eval(eq, {"__builtins__": None}, lcl_vrs_cpy)
+	use_this = {"__builtins__": EVAL_SAFEDICT}
+	use_this.update(lcl_vrs)
+	return eval(eq, use_this, {})
 
 def verify_eq(user_eq):
 	tree = ast.parse(user_eq, mode='eval')

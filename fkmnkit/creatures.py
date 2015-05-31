@@ -87,7 +87,7 @@ class Pokemon:
 	@bsatk.setter
 	def bsatk(self, d):
 		if not self._validate_bst_val(d):
-			raise ValueError("Base stats cannot go below 1 or above 256!")
+			raise ValueError("Base stats cannot go below {} or above {}!".format(MIN_BST_VAL, MAX_BST_VAL))
 		self._bsatk = d
 
 	@property
@@ -118,6 +118,20 @@ class PokemonInstance:
 	MAX_EVS_TOTAL = 510
 	MAX_STAT_STAGE = 6
 	MIN_STAT_STAGE = -6
+
+	def __init__(self, pokedex_data, hp_iv=0, atk_iv=0, dfn_iv=0, satk_iv=0, sdef_iv=0, spd_iv=0):
+		pass
+
+	@property
+	def level(self):
+		return self._level
+
+	@level.setter
+	def level(self, d):
+		if not self._validate_lvl(d):
+			raise ValueError("Level must be between {} and {}".format(MIN_LVL, MAX_LVL))
+		else:
+			self._level = d
 
 	def _get_stage_mult(self, d, sid):
 		if sid == StatID.EVA:
