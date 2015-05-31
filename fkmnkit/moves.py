@@ -4,7 +4,7 @@ import builtins
 
 AST_WHITELIST = (ast.Expression, ast.GeneratorExp, ast.Call, ast.Name, ast.Load,
                  ast.BinOp, ast.UnaryOp, ast.operator, ast.unaryop, ast.cmpop,
-                 ast.Num, ast.Tuple, ast.Attribute, ast.comprehension, ast.Store)
+                 ast.Num, ast.Tuple, ast.Attribute, ast.comprehension, ast.Store, ast.IfExp, ast.Compare)
 EVAL_SAFEDICT = {k: builtins.__dict__.get(k, None) for k in ('range', 'tuple', 'sum', 'max', 'min') }
 
 def eq_eval(eq, lcl_vrs):
