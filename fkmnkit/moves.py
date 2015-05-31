@@ -4,12 +4,12 @@ import ast
 AST_WHITELIST = (ast.Expression, ast.Call, ast.Name, ast.Load,
                  ast.BinOp, ast.UnaryOp, ast.operator, ast.unaryop, ast.cmpop,
                  ast.Num, ast.Tuple, ast.Attribute)
-EVAL_SAFEDICT = {k:locals().get(k, None) for k in ('range', 'tuple') }
+EVAL_SAFEDICT = {k:locals().get(k, None) for k in ('range', 'tuple', 'sum') }
 
 def eq_eval(eq, lcl_vrs):
 	lcl_vrs_cpy = lcl_vrs.copy()
 	lcl_vrs_cpy.update(EVAL_SAFEDICT)
-	return eval(eq, {"__builtins__": None})
+	return eval(eq, {"__builtins__": None}, lcl_vrs_cpy)
 
 def verify_eq(user_eq):
 	tree = ast.parse(user_eq, mode='eval')
