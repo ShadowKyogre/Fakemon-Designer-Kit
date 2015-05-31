@@ -176,7 +176,7 @@ class PokemonInstance:
 			#in an actual battle simulator
 
 			stab = 1.5 if technique.stabtype in self.types else 1
-			dmg_modifier = technique.efftype.effective_against(target.types)
+			dmg_modifier = technique.efftypes.effective_against(target.types)
 			dmg = ((2*self.level+10) * a_d_ratio * technique.bp + 2) * dmg_modifier * stab
 			damages.append((0.85*dmg, dmg))
 

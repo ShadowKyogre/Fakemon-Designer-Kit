@@ -25,8 +25,14 @@ class MoveCategory(Enum):
 	STATUS = 2
 
 class PokeMove:
-	def __init__(self, label='', move_cat=MoveCategory.PHYSICAL, bp="0", accuracy=100, efftype=None, stabtype=None):
-		pass
+	def __init__(self, label='', move_cat=MoveCategory.PHYSICAL, bp=0, dbp=0, accuracy=100, efftypes=None, stabtype=None):
+		self.label = label
+		self.move_cat = move_cat
+		self.bp = bp
+		self.dbp = dbp
+		self.accuracy = accuracy
+		self.efftypes = efftypes
+		self.stabtype = stabtype
 
 	def applicable_stab(self, pkmn):
 		#need stabtype because pokes like Hawlucha don't get double STAB from dual type
