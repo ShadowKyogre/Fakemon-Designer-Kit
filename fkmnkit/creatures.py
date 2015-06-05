@@ -178,12 +178,12 @@ class PokemonInstance:
 		damages = []
 
 		for target in targets:
-			if technique.move_kind == MoveCategory.PHYSICAL and bp > 0:
+			if technique.move_kind == MoveCategory.PHYSICAL and dbp > 0:
 				a_d_ratio = self.attack / target.defense
-			elif technique.move_kind == MoveCategory.SPECIAL and bp > 0:
+			elif technique.move_kind == MoveCategory.SPECIAL and dbp > 0:
 				a_d_ratio = self.sattack / target.sdefense
 			else:
-				damages.append(technique.custom_damage(*targets))
+				damages.append(technique.custom_damage(self, target))
 				continue
 
 			#critical hits are not applied in here, they're to be calculated outside
@@ -191,7 +191,7 @@ class PokemonInstance:
 
 			stab = 1.5 if technique.stabtype in self.types else 1
 			dmg_modifier = technique.efftypes.effective_against(target.types)
-			dmg = ((2*self.level+10) * a_d_ratio * technique.bp + 2) * dmg_modifier * stab
+			dmg = ((2*self.level+10) * a_d_ratio * technique.bp(self, target) + 2) * dmg_modifier * stab
 			damages.append((0.85*dmg, dmg))
 
 		return damages
