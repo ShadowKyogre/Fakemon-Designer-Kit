@@ -80,13 +80,16 @@ class TestPokemonCreation(unittest.TestCase):
 
 		wigglytuff_instance.level = 50
 		self.assertEquals(wigglytuff_instance.atk, 82)
+		self.assertEquals(wigglytuff_instance.satk, 81)
 
 		wigglytuff_instance.level = 100
 		self.assertEquals(wigglytuff_instance.atk, 159)
+		self.assertEquals(wigglytuff_instance.satk, 157)
 
 		wigglytuff_instance.atk_ev = 252
 		wigglytuff_instance.atk_iv = 31
 		self.assertEquals(wigglytuff_instance.atk, 262)
+		self.assertEquals(wigglytuff_instance.satk, 157)
 
 if __name__ == '__main__':
 	unittest.main()
