@@ -41,7 +41,7 @@ class PokeMove:
 		return self._cdf
 
 	@custom_damage_formula.setter
-	def custom_damage_formula(self, cdf)
+	def custom_damage_formula(self, cdf):
 		if isinstance(cdf, str):
 			self._cdf = cdf
 			try:
@@ -53,7 +53,7 @@ class PokeMove:
 			self._cdf = cdf
 			self._cdf_code = None
 		elif cdf is None:
-			self._cdf None None
+			self._cdf = cdf
 			self._cdf_code = None
 		else:
 			raise ValueError("Custom damage is neither a formula string nor a function!")
