@@ -2,6 +2,7 @@ import gettext
 import csv
 import os
 from collections import Counter
+from itertools import product
 
 gettext.install('fakemon_kit')
 
@@ -87,6 +88,29 @@ class PokeTypeSet:
 			return running_product
 		else:
 			raise ValueError("Cannot calculate type effectiveness")
+
+def check_coverage(types_or_type_sets, pokemon, consider_abilities=False):
+	no_effect = []
+	not_very_effective = []
+	normal_effective = []
+	super_effective = []
+
+	for pkmn in pokemon:
+		greatest_effectiveness = 0
+		for titem in types_or_type_sets:
+			if titem.effectiveness_against(pkmn.types) > greatest_effectiveness:
+				greatest_effectiveness = titem.effectiveness_against(pkmn.types)
+
+		if greatest_effectiveness == 0:
+			no_effect.append(pkmn)
+		elif greatest_effectiveness < 1:
+			not_very_effective.append(pkmn)
+		elif greatest_effectiveness >= 2:
+			super_effective.append(pkmn)
+		else:
+			normal_effective.append(pkmn)
+
+	return [no_effect, not_very_effective, normal_effective, super_effective]
 
 STANDARD_TYPES = {}
 with open(os.path.join(os.path.dirname(__file__), 'standard_types.tsv'), 'r', encoding='utf-8') as f:

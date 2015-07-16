@@ -1,8 +1,10 @@
+import csv
 from enum import Enum
 from math import floor
+import os
 
 from fkmnkit.moves import MoveCategory
-from fkmnkit.poketypes import PokeTypeSet
+from fkmnkit.poketypes import PokeTypeSet, STANDARD_TYPES
 
 class StatID(Enum):
 	HP = 0
@@ -398,3 +400,18 @@ class PokemonInstance:
 			damages.append((0.85*dmg, dmg))
 
 		return damages
+
+STANDARD_PKMN = {}
+with open(os.path.join(os.path.dirname(__file__), 'pokedex.tsv'), 'r', encoding='utf-8') as f:
+	csvr = csv.reader(f, delimiter='\t')
+	for row in csvr:
+		types = []
+		types.append(STANDARD_TYPES[row[2]])
+		if row[3] != "N/A":
+			types.append(STANDARD_TYPES[row[3]])
+		tset = PokeTypeSet(types)
+		pkmn = Pokemon(label=row[1], dexno=int(row[0][:3]), types=tset, 
+		               bhp=int(row[4]), batk=int(row[5]), bdfn=int(row[6]),
+		               bsatk=int(row[7]), bsdfn=int(row[8]), bspd=int(row[9]))
+
+		STANDARD_PKMN[row[1]] = pkmn
